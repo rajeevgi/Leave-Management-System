@@ -19,6 +19,11 @@ const User = {
     getAllUsers: (callback) => {
         const sql = "Select * from users";
         db.query(sql, callback);
+    },
+
+    deleteUser: (id, callback) => {
+        const sql = "Delete From Users Where id = ?";
+        db.query(sql, [id], callback);
     }
 };
 
