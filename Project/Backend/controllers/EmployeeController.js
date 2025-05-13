@@ -11,12 +11,10 @@ exports.addUserProfile = (req, res) => {
 
   Employee.createProfile(employee_data, (err, result) => {
     if (err){
-      console.log('Employee Info : ', employee_data)
       return res.status(500).json({ error: "Failed To Add Employee!!!" });
     }
 
     res.status(200).json({ message: "Employee Registered Successfully...", result });
-    console.log("Employee Info After: ", employee_data);
   });
 };
 

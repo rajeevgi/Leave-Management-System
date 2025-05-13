@@ -12,6 +12,19 @@ const verifyToken = (req, res, next) => {
     } catch (error) {
         return res.status(403).json({ message : "Invalid or expired token"});
     }
-}
+};
 
-module.exports = verifyToken;
+
+const allowRoles = (...allowedRoles) => {
+    return (req, res, next) => {
+        const userRole = req.user.role;
+
+        if(!allowedRoles.includes(userRole)){
+            return res.status(403).json({ message : "Access denied!"});
+        }
+
+        next();
+    };
+};
+
+module.exports = { verifyToken, allowRoles };
