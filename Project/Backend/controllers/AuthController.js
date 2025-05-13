@@ -13,7 +13,7 @@ exports.register = async (req, res) => {
     (err, result) => {
       if (err)
         return res.status(500).json({ message: "Internal Server Error!" });
-      res.status(201).json({ message: "User registered Successfully..." });
+      res.status(201).json({ message: "User registered Successfully...", result });
     }
   );
 };
@@ -39,6 +39,6 @@ exports.login = async (req, res) => {
       { expiresIn: "1h" }
     );
 
-    res.json({ token, role: user.role, userId: user.id });
+    res.json({ message:"User Login Successfully..", token, role: user.role, userId: user.id });
   });
 };

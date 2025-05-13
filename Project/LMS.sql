@@ -1,4 +1,5 @@
 create database if not exists LMS_DB;
+drop database LMS_DB;
 
 use LMS_DB;
 

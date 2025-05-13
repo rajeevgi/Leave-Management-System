@@ -1,13 +1,22 @@
 const Employee = require("../Models/Employee");
 
-exports.create = (req, res) => {
-  const data = req.body;
+exports.addUserProfile = (req, res) => {
+  const { user_id, name, position, department } = req.body;
 
-  Employee.create(data, (err, result) => {
-    if (err)
+  if (!user_id || !name || !position || !department) {
+    return res.status(400).json({ error: "All fields are required" });
+  }
+
+  const employee_data = { user_id, name, position, department };
+
+  Employee.createProfile(employee_data, (err, result) => {
+    if (err){
+      console.log('Employee Info : ', employee_data)
       return res.status(500).json({ error: "Failed To Add Employee!!!" });
+    }
 
-    res.status(201).json({ message: "Employee Registered Successfully...", result });
+    res.status(200).json({ message: "Employee Registered Successfully...", result });
+    console.log("Employee Info After: ", employee_data);
   });
 };
 
@@ -22,12 +31,12 @@ exports.getUserById = (req, res) => {
 };
 
 exports.getByUserId = (req, res) => {
-  const userId = req.params.userId;
-  Employee.findById(userId, (err, result) => {
-    if (err)
-      return res
-        .status(500)
-        .json({ error: "Failed To Fetch Employee By userId!" });
+  const { userId } = req.params;
+  Employee.findByUserId(userId, (err, result) => {
+    if (err) {
+      return res.status(500).json({ error: "Failed To Fetch Employee By userId!" });
+    }
+
     res.json(result[0]);
   });
 };

@@ -14,12 +14,11 @@ exports.getLeavesByEmployeeId = (req, res) => {
   const employeeId = req.params.employeeId;
 
   leave.getByEmployeeId(employeeId, (err, result) => {
-    if (err)
-      return res
-        .status(500)
-        .json({ error: "Failed To Apply leave by Employee ID!" });
+    if (err){
+      return res.status(500).json({ error: "Failed To Apply leave by Employee ID!" });
+    }
 
-    res.json(result);
+    res.json(result[0]);
   });
 };
 
@@ -33,12 +32,15 @@ exports.getAllLeaves = (req, res) => {
 };
 
 exports.updateLeaveStatus = (req, res) => {
-  const { leaveId, status } = req.body;
+  const { leaveId } = req.params;
+  const { status } = req.body;
 
-  leave.updateStatus(leaveId, status, (err, result) => {
+  leave.updateStatus(leaveId,status, (err, result) => {
     if (err)
+    {
       return res.status(500).json({ error: "Failed To Update Leave Status!" });
+    }
 
-    res.status(201).json({ message: "Status Updated Sucessfully...", result });
+    res.status(200).json({ message: "Status Updated Sucessfully...", result });
   });
 };

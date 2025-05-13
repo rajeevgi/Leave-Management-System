@@ -1,9 +1,9 @@
 const db = require('../config/database');
 
 const Employees = {
-    create: (data, callback) => {
-        const sql = "Insert into employees (user_id, name, department, position) values (?,?,?,?)";
-        db.query(sql, [data.user_id, data.name, data.department, data.position], callback);
+    createProfile: (data, callback) => {
+        const sql = "Insert into employees (user_id, name, position, department) values (?,?,?,?)";
+        db.query(sql, [data.user_id, data.name, data.position, data.department], callback);
     },
 
     findById: (id, callback) => {
