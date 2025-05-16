@@ -10,6 +10,7 @@ import { MyLeavesComponent } from './dashboard/employee/my-leaves/my-leaves.comp
 import { HomeComponent } from './dashboard/home/home.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './dashboard/employee/employee-dashboard/employee-dashboard.component';
+import { authGuard } from './shared/guard/auth.guard';
 
 export const routes: Routes = [
 
@@ -32,47 +33,56 @@ export const routes: Routes = [
 
     {
         path:'app-navbar',
-        component:NavbarComponent
+        component:NavbarComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-footer',
-        component:FooterComponent
+        component:FooterComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-home',
-        component:HomeComponent
+        component:HomeComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-admin-dashboard',
-        component:AdminDashboardComponent
+        component:AdminDashboardComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-employee-dashboard',
-        component:EmployeeDashboardComponent
+        component:EmployeeDashboardComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-employees',
-        component:EmployeesComponent
+        component:EmployeesComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-leave-requests',
-        component:LeaveRequestsComponent
+        component:LeaveRequestsComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-apply-leave',
-        component:ApplyLeaveComponent
+        component:ApplyLeaveComponent,
+        canActivate:[authGuard]
     },
 
     {
         path:'app-my-leaves',
-        component:MyLeavesComponent
+        component:MyLeavesComponent,
+        canActivate:[authGuard]
     },
 
     {
