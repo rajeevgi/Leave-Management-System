@@ -1,19 +1,25 @@
-import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { TokenService } from '../../shared/services/token.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [],
+  imports: [CommonModule, RouterLink],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
 })
-export class NavbarComponent {
+export class NavbarComponent implements OnInit {
 
-  constructor(private router : Router){}
+  role : string | null = null;
+
+  constructor(private router : Router, private tokenService : TokenService){}
+
+  ngOnInit(): void {
+    this.role = this.tokenService.getRole();
+  }
 
   logout(){
-    sessionStorage.getItem('token');
-    sessionStorage.removeItem('token');
     sessionStorage.clear();
     this.router.navigateByUrl('/app-login');
   }

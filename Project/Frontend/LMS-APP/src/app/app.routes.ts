@@ -8,6 +8,8 @@ import { LeaveRequestsComponent } from './dashboard/admin/leave-requests/leave-r
 import { ApplyLeaveComponent } from './dashboard/employee/apply-leave/apply-leave.component';
 import { MyLeavesComponent } from './dashboard/employee/my-leaves/my-leaves.component';
 import { HomeComponent } from './dashboard/home/home.component';
+import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
+import { EmployeeDashboardComponent } from './dashboard/employee/employee-dashboard/employee-dashboard.component';
 
 export const routes: Routes = [
 
@@ -41,6 +43,16 @@ export const routes: Routes = [
     {
         path:'app-home',
         component:HomeComponent
+    },
+
+    {
+        path:'app-admin-dashboard',
+        component:AdminDashboardComponent
+    },
+
+    {
+        path:'app-employee-dashboard',
+        component:EmployeeDashboardComponent
     },
 
     {

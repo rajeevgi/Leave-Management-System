@@ -1,19 +1,32 @@
 <section>
   <nav class="bg-blue-500 text-white px-6 py-4">
     <div class="flex items-center justify-between">
-      <!-- Left-side menu items -->
-      <ul class="flex space-x-6">
-        <li class="hover:text-black hover:underline font-bold cursor-pointer"><a href="#" routerLink="/app-home">Home</a></li>
-        <li class="hover:text-black hover:underline font-bold cursor-pointer"><a href="#" routerLink="/app-home">About</a></li>
-        <li class="hover:text-black hover:underline font-bold cursor-pointer"><a href="#" routerLink="/app-home">Contact</a></li>
-        <li class="hover:text-black hover:underline font-bold cursor-pointer"><a href="#" routerLink="/app-home">Service</a></li>
-      </ul>
+      <!-- Left Section: Logo and Dashboard -->
+      <div class="flex items-center space-x-6">
+        <a href="#" class="flex items-center">
+          <img src="assets/images/development.png" class="w-8 h-8 rounded-full object-cover border border-black p-1 hover:bg-white" alt="Logo">
+        </a>
+        <ul class="flex space-x-6">
+          <ng-container *ngIf="role === 'Admin'">
+            <li class="hover:text-black hover:underline font-bold cursor-pointer">
+              <a routerLink="/app-admin-dashboard">Dashboard</a>
+            </li>
+          </ng-container>
+          <ng-container *ngIf="role === 'Employee'">
+            <li class="hover:text-black hover:underline font-bold cursor-pointer">
+              <a routerLink="/app-employee-dashboard">Employee Dashboard</a>
+            </li>
+          </ng-container>
+        </ul>
+      </div>
 
-      <!-- Right-side Sign Out -->
-      <ul>
-        <li type="button" class="hover:text-black hover:underline font-bold cursor-pointer" (click)="logout()">Sign Out</li>
-      </ul>
+      <!-- Right Section: Role & Sign Out -->
+      <div class="flex items-center space-x-6">
+        <span class="font-bold">{{ role }}</span>
+        <button type="button" class="hover:text-black hover:underline font-bold cursor-pointer" (click)="logout()">
+          Sign Out
+        </button>
+      </div>
     </div>
   </nav>
 </section>
-
