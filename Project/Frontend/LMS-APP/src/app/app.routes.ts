@@ -13,82 +13,81 @@ import { EmployeeDashboardComponent } from './dashboard/employee/employee-dashbo
 import { authGuard } from './shared/guard/auth.guard';
 
 export const routes: Routes = [
+  // Default route
+  {
+    path: '',
+    redirectTo: 'app-login',
+    pathMatch: 'full',
+  },
 
-    // Default route
-    {
-        path:'',
-        redirectTo:'app-login',
-        pathMatch:'full'
-    },
+  {
+    path: 'app-login',
+    component: LoginComponent,
+  },
 
-    {
-        path:'app-login',
-        component:LoginComponent
-    },
+  {
+    path: 'app-register',
+    component: RegisterComponent,
+  },
 
-    {
-        path:'app-register',
-        component:RegisterComponent
-    },
+  {
+    path: 'app-navbar',
+    component: NavbarComponent,
+    canActivate: [authGuard],
+  },
 
-    {
-        path:'app-navbar',
-        component:NavbarComponent,
-        canActivate:[authGuard]
-    },
+  {
+    path: 'app-footer',
+    component: FooterComponent,
+    canActivate: [authGuard],
+  },
 
-    {
-        path:'app-footer',
-        component:FooterComponent,
-        canActivate:[authGuard]
-    },
+  {
+    path: 'app-home',
+    component: HomeComponent,
+    canActivate: [authGuard],
+    children: [
+      {
+        path: 'app-admin-dashboard',
+        component: AdminDashboardComponent,
+        canActivate: [authGuard],
+      },
 
-    {
-        path:'app-home',
-        component:HomeComponent,
-        canActivate:[authGuard]
-    },
+      {
+        path: 'app-employee-dashboard',
+        component: EmployeeDashboardComponent,
+        canActivate: [authGuard],
+      },
 
-    {
-        path:'app-admin-dashboard',
-        component:AdminDashboardComponent,
-        canActivate:[authGuard]
-    },
+      {
+        path: 'app-employees',
+        component: EmployeesComponent,
+        canActivate: [authGuard],
+      },
 
-    {
-        path:'app-employee-dashboard',
-        component:EmployeeDashboardComponent,
-        canActivate:[authGuard]
-    },
+      {
+        path: 'app-leave-requests',
+        component: LeaveRequestsComponent,
+        canActivate: [authGuard],
+      },
 
-    {
-        path:'app-employees',
-        component:EmployeesComponent,
-        canActivate:[authGuard]
-    },
+      {
+        path: 'app-apply-leave',
+        component: ApplyLeaveComponent,
+        canActivate: [authGuard],
+      },
 
-    {
-        path:'app-leave-requests',
-        component:LeaveRequestsComponent,
-        canActivate:[authGuard]
-    },
+      {
+        path: 'app-my-leaves',
+        component: MyLeavesComponent,
+        canActivate: [authGuard],
+      },
+    ],
+  },
 
-    {
-        path:'app-apply-leave',
-        component:ApplyLeaveComponent,
-        canActivate:[authGuard]
-    },
-
-    {
-        path:'app-my-leaves',
-        component:MyLeavesComponent,
-        canActivate:[authGuard]
-    },
-
-    {
-        path:'**',
-        redirectTo:'app-login',
-        pathMatch:'full'
-    }
-    
+  {
+    path: '**',
+    redirectTo: 'app-login',
+    pathMatch: 'full',
+  },
 ];

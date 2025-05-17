@@ -11,28 +11,25 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-
   user: User = {
-    email:'',
-    password:''
-  }
+    email: '',
+    password: '',
+  };
 
   constructor(private authService: AuthService, private router: Router) {}
- 
+
   onLogin() {
-    this.authService.login(this.user).subscribe((res : any) => {
+    this.authService.login(this.user).subscribe((res: any) => {
       const userRole = res.role;
 
-      if((userRole ==='Admin' || userRole === 'Employee') && res.token){
-
-        sessionStorage.setItem('token', JSON.stringify(res.token));
+      if ((userRole === 'Admin' || userRole === 'Employee') && res.token) {
+        sessionStorage.setItem('token', res.token);
         sessionStorage.setItem(`${userRole}`, JSON.stringify(res));
         alert(`${userRole} is loginned Successfully...`);
         this.router.navigateByUrl('/app-home');
-      }else{
+      } else {
         alert('Login failed. Please check your credentials.');
       }
     });
-  } 
-
+  }
 }

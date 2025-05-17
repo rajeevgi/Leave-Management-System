@@ -9,12 +9,12 @@
         <ul class="flex space-x-6">
           <ng-container *ngIf="role === 'Admin'">
             <li class="hover:text-black hover:underline font-bold cursor-pointer">
-              <a routerLink="/app-admin-dashboard">Dashboard</a>
+              <a routerLink="app-admin-dashboard">Dashboard</a>
             </li>
           </ng-container>
           <ng-container *ngIf="role === 'Employee'">
             <li class="hover:text-black hover:underline font-bold cursor-pointer">
-              <a routerLink="/app-employee-dashboard">Employee Dashboard</a>
+              <a routerLink="app-employee-dashboard">Employee Dashboard</a>
             </li>
           </ng-container>
         </ul>
