@@ -37,6 +37,8 @@ create table leaves (
     foreign key (employee_id) references Employees(id) on delete cascade
 );   
 
+Select e.*, u.email from employees e JOIN users u ON e.user_id = u.id;
+
 select * from users;
 select * from employees;
 select * from leaves;

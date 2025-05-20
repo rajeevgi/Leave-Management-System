@@ -14,10 +14,21 @@ export class ApiService {
   constructor(private http : HttpClient) { }
 
   // Users API's
+  addUsers(data : any) : Observable<any> {
+    return this.http.post<any>(`${this.userUrl}/createUser`, data);
+  }
+
   getAllUsers() : Observable<any> {
     return this.http.get(`${this.userUrl}/getAllUsers`);
   }
 
+  getUserById(id : number) : Observable<any> {
+    return this.http.get(`${this.userUrl}/findUserById/${id}`);
+  }
+
+  deleteUserById(id : number) : Observable<any> {
+    return this.http.delete(`${this.userUrl}/deleteUserById/${id}`);
+  }
 
   // Employee's API's
   getAll() : Observable<any> {

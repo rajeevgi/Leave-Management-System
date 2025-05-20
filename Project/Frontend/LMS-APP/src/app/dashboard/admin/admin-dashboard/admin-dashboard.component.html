@@ -1,3 +1,96 @@
+<div class="container">
+    <div class="bg-slate-200 p-5 m-2 rounded-lg">
+        <h2 class="font-bold text-3xl mb-2">Leave Management System</h2>
+        <p>Manage the leaves efficiently</p>
+    </div>
+    <div class="flex flex-row place-content-center">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 p-6 place-content-center">
+            <!-- Card 1 -->
+            <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+                <h2 class="flex place-content-center text-xl font-bold mb-2">Total Users</h2>
+                <p class="text-gray-600 flex place-content-center font-semibold">{{ userList.length }}</p>
+            </div>
+
+            <!-- Card 2 -->
+            <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+                <h2 class="flex place-content-center text-xl font-bold mb-2">Total Employees</h2>
+                <p class="flex place-content-center text-gray-600 font-semibold">{{ totalEmployees }}</p>
+            </div>
+
+            <!-- Card 3 -->
+            <div class="bg-white rounded-2xl shadow-md p-6 hover:shadow-lg transition">
+                <h2 class="flex place-content-center text-xl font-bold mb-2">Total Admins</h2>
+                <p class="flex place-content-center text-gray-600 font-semibold">{{ totalAdmins }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="flex justify-center mt-4">
+        <div class="relative group cursor-pointer" (click)="openModal()">
+            <!-- Icon -->
+            <i class="fa-solid fa-square-plus text-3xl text-blue-600"></i>
+
+            <!-- Tooltip -->
+            <div
+                class="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-black text-white text-sm px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                Add User
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Add User Form (Modal) -->
+<div *ngIf="isModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg relative animate-fade-in">
+
+        <!-- Close Button -->
+        <button (click)="closeModal()"
+            class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl font-bold focus:outline-none">
+            &times;
+        </button>
+
+        <!-- Modal Title -->
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">Add User</h2>
+
+        <!-- Form -->
+        <form class="space-y-4">
+            <div>
+                <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+                <input type="text" id="username" name="username" [(ngModel)]="user.username"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter username" required />
+            </div>
+
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email</label>
+                <input type="email" id="email" name="email" [(ngModel)]="user.email"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter email" required />
+            </div>
+
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+                <input type="password" id="password" name="password" [(ngModel)]="user.password"
+                    class="mt-1 block w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    placeholder="Enter password" required />
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="flex justify-end gap-3 pt-4">
+                <button type="button" (click)="closeModal()"
+                    class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">
+                    Cancel
+                </button>
+                <button type="button" (click)="addUsers(user)"
+                    class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
+                    Save
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
 <h2 class="text-center font-bold mt-3 mb-3">User Dashboard</h2>
 <div class="container flex place-content-center">
     <table class="border-collapse border  border-slate-500 w-full">
@@ -9,16 +102,24 @@
                 <th class="border px-6 py-3 border-slate-500">Role</th>
                 <th class="border px-6 py-3 border-slate-500">Created_at</th>
                 <th class="border px-6 py-3 border-slate-500">Updated_at</th>
+                <th class="borser px-6 py-3 border-slate-500">Actions</th>
             </tr>
         </thead>
         <tbody class="text-center">
-            <tr *ngFor="let user of userList; let i = index">
+            <tr *ngFor="let user of userList; let i = index" class="hover:bg-blue-100">
                 <td class="border px-6 py-3 border-slate-500">{{ i+1 }}</td>
                 <td class="border px-6 py-3 border-slate-500">{{ user.username }}</td>
                 <td class="border px-6 py-3 border-slate-500">{{ user.email }}</td>
                 <td class="border px-6 py-3 border-slate-500">{{ user.role }}</td>
                 <td class="border px-6 py-3 border-slate-500">{{ user.created_at }}</td>
                 <td class="border px-6 py-3 border-slate-500">{{ user.updated_at }}</td>
+                <td class="border px-6 py-3 border-slate-500">
+                    <button type="button"
+                        class="px-4 py-2 bg-green-500 text-white rounded-md m-1 hover:bg-green-600 transition">View</button>
+                    <button type="button"
+                        class="px-4 py-2 bg-red-500 text-white rounded-md m-1 hover:bg-red-600 transition"
+                        (click)="deleteUserById(user.id!)">Delete</button>
+                </td>
             </tr>
         </tbody>
     </table>
