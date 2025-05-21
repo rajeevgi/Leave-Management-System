@@ -18,4 +18,7 @@ router.get('/getAllUsers',verifyToken, allowRoles('Admin'),  userController.getA
 // Delete A User
 router.delete('/deleteUserById/:id',verifyToken, allowRoles('Admin'), userController.deleteUser);
 
+// Update an user
+router.put('/updateUser/:id', verifyToken, allowRoles('Admin'), userController.updateUser);
+
 module.exports = router;

@@ -14,15 +14,19 @@ exports.createUser = async (req, res) => {
 
     User.create(userData, (err, result) => {
       if (err) {
-        if (err.code === 'ER_DUP_ENTRY') {
+        if (err.code === "ER_DUP_ENTRY") {
           return res.status(409).json({ error: "Email already exists" });
         }
-        return res.status(500).json({ error: "Failed to create user", details: err.message });
+        return res
+          .status(500)
+          .json({ error: "Failed to create user", details: err.message });
       }
       res.status(201).json({ message: "User Registered Successfully", result });
     });
   } catch (error) {
-    return res.status(500).json({ error: "Server error", details: error.message });
+    return res
+      .status(500)
+      .json({ error: "Server error", details: error.message });
   }
 };
 
@@ -54,7 +58,6 @@ exports.findUserByEmail = (req, res) => {
   });
 };
 
-
 exports.getAllUsers = (req, res) => {
   User.getAllUsers((err, results) => {
     if (err)
@@ -71,4 +74,24 @@ exports.deleteUser = (req, res) => {
 
     res.status(201).json({ message: "User Deleted Successfully...", result });
   });
+};
+
+exports.updateUser = async (req, res) => {
+  const { id } = req.params;
+  const { username, email, password } = req.body;
+
+  try {
+    const hashedPassword = await bcrypt.hash(password, 10);
+    const data = { username, email, password: hashedPassword };
+    User.updateUser(id, data, (err, result) => {
+      if (err)
+        return res.status(500).json({ error: "Failed to update user! " });
+
+      res.status(201).json({ message: "User updated Sucessfully...", result });
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ error: "Server error", details: error.message });
+  }
 };

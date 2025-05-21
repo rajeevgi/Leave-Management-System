@@ -3,11 +3,11 @@ import { CommonModule } from '@angular/common';
 import { User } from '../../../shared/model/user';
 import { ApiService } from '../../../shared/services/api.service';
 import { FormsModule } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css',
 })
@@ -28,6 +28,7 @@ export class AdminDashboardComponent implements OnInit {
   totalEmployees: number = 0;
 
   isModalOpen: boolean = false;
+  mode : 'add' | 'update' = 'add';
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -51,14 +52,21 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
-  // Add Users
-  openModal() {
+  // Add Users / Update Users
+  openAddModal() {
+    this.mode = 'add';
     this.user = {
       username: '',
       email: '',
       password: '',
       role: 'Employee',
     };
+    this.isModalOpen = true;
+  }
+
+  openUpdateModal(user : User){
+    this.mode = 'update';
+    this.user = {...user, password:''};
     this.isModalOpen = true;
   }
 
@@ -82,5 +90,14 @@ export class AdminDashboardComponent implements OnInit {
         this.loadUsers();
       });
     }
+  }
+
+  // Update an user
+  updateUser() {
+    this.apiService.updateUserById(this.user.id!, this.user).subscribe(( res : any) => {
+      alert('User updated successfully...');
+      this.loadUsers();
+      this.closeModal();
+    });
   }
 }

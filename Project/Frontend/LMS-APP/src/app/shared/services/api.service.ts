@@ -30,6 +30,10 @@ export class ApiService {
     return this.http.delete(`${this.userUrl}/deleteUserById/${id}`);
   }
 
+  updateUserById(id: number, data : any) : Observable<any> {
+    return this.http.put(`${this.userUrl}/updateUser/${id}`, data);
+  }
+
   // Employee's API's
   getAll() : Observable<any> {
     return this.http.get(`${this.empUrl}/getAllUsers`);

@@ -25,7 +25,7 @@
         </div>
     </div>
     <div class="flex justify-center mt-4">
-        <div class="relative group cursor-pointer" (click)="openModal()">
+        <div class="relative group cursor-pointer" (click)="openAddModal()">
             <!-- Icon -->
             <i class="fa-solid fa-square-plus text-3xl text-blue-600"></i>
 
@@ -38,7 +38,7 @@
     </div>
 </div>
 
-<!-- Add User Form (Modal) -->
+<!-- Add/Update User Form (Modal) -->
 <div *ngIf="isModalOpen"
     class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300">
     <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg relative animate-fade-in">
@@ -50,7 +50,9 @@
         </button>
 
         <!-- Modal Title -->
-        <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">Add User</h2>
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">
+           {{ mode === 'add' ? 'Add User' : 'Update User' }} 
+        </h2>
 
         <!-- Form -->
         <form class="space-y-4">
@@ -81,9 +83,9 @@
                     class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">
                     Cancel
                 </button>
-                <button type="button" (click)="addUsers(user)"
+                <button type="button" (click)="mode === 'add' ? addUsers(user) : updateUser()"
                     class="px-4 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 transition">
-                    Save
+                    {{ mode === 'add' ? 'Save' : 'Update'}}
                 </button>
             </div>
         </form>
@@ -94,7 +96,7 @@
 <h2 class="text-center font-bold mt-3 mb-3">User Dashboard</h2>
 <div class="container flex place-content-center">
     <table class="border-collapse border  border-slate-500 w-full">
-        <thead>
+        <thead class="bg-blue-500 text-white">
             <tr>
                 <th class="border px-6 py-3 border-slate-500">Id</th>
                 <th class="border px-6 py-3 border-slate-500">Username</th>
@@ -115,12 +117,21 @@
                 <td class="border px-6 py-3 border-slate-500">{{ user.updated_at }}</td>
                 <td class="border px-6 py-3 border-slate-500">
                     <button type="button"
-                        class="px-4 py-2 bg-green-500 text-white rounded-md m-1 hover:bg-green-600 transition">View</button>
+                        class="px-2 py-2 bg-green-500 text-white rounded-md m-1 hover:bg-green-600 transition">View</button>
                     <button type="button"
-                        class="px-4 py-2 bg-red-500 text-white rounded-md m-1 hover:bg-red-600 transition"
+                        class="px-2 py-2 bg-rose-600 text-white rounded-md m-1 hover:bg-rose-700" (click)="openUpdateModal(user)">Edit</button>
+                    <button type="button"
+                        class="px-2 py-2 bg-red-500 text-white rounded-md m-1 hover:bg-red-600 transition"
                         (click)="deleteUserById(user.id!)">Delete</button>
                 </td>
             </tr>
         </tbody>
     </table>
+</div>
+
+
+<div class="px-3 py-3">
+    <button type="button" class="w-20 h-12 border bg-slate-400 hover:bg-slate-700 rounded-lg">
+        <a href="" routerLink="/app-home" class="text-white font-bold">Back</a>
+    </button>
 </div>
