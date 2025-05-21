@@ -28,7 +28,9 @@ export class AdminDashboardComponent implements OnInit {
   totalEmployees: number = 0;
 
   isModalOpen: boolean = false;
-  mode : 'add' | 'update' = 'add';
+  mode: 'add' | 'update' = 'add';
+
+  searchTerm: string = '';
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -52,6 +54,21 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
+  // Search Filter
+  filteredUsers(): User[] {
+    if (!this.searchTerm) {
+      return this.userList;
+    }
+
+    const lowerSearch = this.searchTerm.toLowerCase();
+
+    return this.userList.filter(
+      (user) =>
+        user.username?.toLowerCase().includes(lowerSearch) ||
+        user.email.toLowerCase().includes(lowerSearch)
+    );
+  }
+
   // Add Users / Update Users
   openAddModal() {
     this.mode = 'add';
@@ -64,9 +81,9 @@ export class AdminDashboardComponent implements OnInit {
     this.isModalOpen = true;
   }
 
-  openUpdateModal(user : User){
+  openUpdateModal(user: User) {
     this.mode = 'update';
-    this.user = {...user, password:''};
+    this.user = { ...user, password: '' };
     this.isModalOpen = true;
   }
 
@@ -82,6 +99,17 @@ export class AdminDashboardComponent implements OnInit {
     });
   }
 
+  // Update an user
+  updateUser() {
+    this.apiService
+      .updateUserById(this.user.id!, this.user)
+      .subscribe((res: any) => {
+        alert('User updated successfully...');
+        this.loadUsers();
+        this.closeModal();
+      });
+  }
+
   // Delete an user
   deleteUserById(id: number) {
     if (confirm('Are you sure want to remove this user?')) {
@@ -92,12 +120,10 @@ export class AdminDashboardComponent implements OnInit {
     }
   }
 
-  // Update an user
-  updateUser() {
-    this.apiService.updateUserById(this.user.id!, this.user).subscribe(( res : any) => {
-      alert('User updated successfully...');
-      this.loadUsers();
-      this.closeModal();
+  // Get User Profile
+  openUserProfile(id: number) {
+    this.apiService.getEmployeeProfile(id).subscribe((res: any) => {
+      this.userList = res;
     });
   }
 }

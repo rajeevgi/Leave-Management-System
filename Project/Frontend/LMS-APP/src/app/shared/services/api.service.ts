@@ -38,5 +38,9 @@ export class ApiService {
   getAll() : Observable<any> {
     return this.http.get(`${this.empUrl}/getAllUsers`);
   }
+
+  getEmployeeProfile(id : number) : Observable<any> {
+    return this.http.get(`${this.empUrl}/findUserById/${id}`);
+  }
 }
  

@@ -7,6 +7,11 @@
           <img src="assets/images/development.png" class="w-8 h-8 rounded-full object-cover border border-black p-1 hover:bg-white" alt="Logo">
         </a>
         <ul class="flex space-x-6">
+          <ng-container>
+            <li class="hover:text-black hover:underline font-bold cursor-pointer">
+              <a routerLink="app-home">Home</a>
+            </li>
+          </ng-container>
           <ng-container *ngIf="role === 'Admin'">
             <li class="hover:text-black hover:underline font-bold cursor-pointer">
               <a routerLink="app-admin-dashboard">Dashboard</a>

@@ -1,11 +1,42 @@
-<div class="min-h-screen flex flex-col">
+<section class="bg-blue-100 py-20">
+    <div class="container mx-auto px-6 text-center">
+        <h2 class="text-4xl font-bold mb-4 text-blue-800">Simplify Your Leave Management</h2>
+        <p class="text-lg text-gray-700 mb-6">
+            A smart solution to manage employee leaves, approvals, and tracking—all in one place.
+        </p>
+        <a type="button" routerLink="/app-dashboard-layout/app-admin-dashboard" class="bg-blue-600 text-white px-6 py-3 rounded-full text-lg hover:bg-blue-700 cursor-pointer">
+            Get Started
+        </a>
+    </div>
+</section>
 
-    <app-navbar></app-navbar>
+<!-- Features Section -->
+<section id="features" class="py-16 bg-white">
+    <div class="container mx-auto px-6">
+        <h3 class="text-3xl font-bold text-center mb-10 text-gray-800">Key Features</h3>
+        <div class="grid md:grid-cols-3 gap-10 text-center">
+            <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition">
+                <h4 class="text-xl font-semibold text-blue-600 mb-2">Leave Requests</h4>
+                <p>Easily apply for and manage leave with a clean, user-friendly interface.</p>
+            </div>
+            <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition">
+                <h4 class="text-xl font-semibold text-blue-600 mb-2">Approval Workflow</h4>
+                <p>Admins and managers can approve or reject leave requests efficiently.</p>
+            </div>
+            <div class="bg-gray-100 p-6 rounded-lg shadow hover:shadow-lg transition">
+                <h4 class="text-xl font-semibold text-blue-600 mb-2">Leave Tracking</h4>
+                <p>Track leave balances and history in real-time with detailed reports.</p>
+            </div>
+        </div>
+    </div>
+</section>
 
-    <main class="flex-grow">
-        <router-outlet></router-outlet>
-    </main>
-
-    <app-footer></app-footer>
-
-</div>
+<section class="bg-blue-500 text-white py-16 text-center">
+    <div class="container mx-auto px-6">
+        <h3 class="text-3xl font-bold mb-4">Start Managing Leaves the Smart Way</h3>
+        <p class="mb-6">Join hundreds of companies already using LeaveEase to streamline their HR processes.</p>
+        <a href="/register" class="bg-white text-blue-600 px-6 py-3 rounded-full text-lg hover:bg-gray-200">
+            Sign Up Free
+        </a>
+    </div>
+</section>

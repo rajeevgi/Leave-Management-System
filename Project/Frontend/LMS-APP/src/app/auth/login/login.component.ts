@@ -26,7 +26,7 @@ export class LoginComponent {
         sessionStorage.setItem('token', res.token);
         sessionStorage.setItem(`${userRole}`, JSON.stringify(res));
         alert(`${userRole} is loginned Successfully...`);
-        this.router.navigateByUrl('/app-home');
+        this.router.navigateByUrl('/app-dashboard-layout/app-home');
       } else {
         alert('Login failed. Please check your credentials.');
       }

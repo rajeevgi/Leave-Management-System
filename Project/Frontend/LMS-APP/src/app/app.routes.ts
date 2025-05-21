@@ -11,6 +11,7 @@ import { HomeComponent } from './dashboard/home/home.component';
 import { AdminDashboardComponent } from './dashboard/admin/admin-dashboard/admin-dashboard.component';
 import { EmployeeDashboardComponent } from './dashboard/employee/employee-dashboard/employee-dashboard.component';
 import { authGuard } from './shared/guard/auth.guard';
+import { DashboardLayoutComponent } from './dashboard/dashboard-layout/dashboard-layout.component';
 
 export const routes: Routes = [
   // Default route
@@ -43,10 +44,16 @@ export const routes: Routes = [
   },
 
   {
-    path: 'app-home',
-    component: HomeComponent,
+    path: 'app-dashboard-layout',
+    component: DashboardLayoutComponent,
     canActivate: [authGuard],
     children: [
+      {
+        path: 'app-home',
+        component: HomeComponent,
+        canActivate: [authGuard],
+      },
+
       {
         path: 'app-admin-dashboard',
         component: AdminDashboardComponent,
