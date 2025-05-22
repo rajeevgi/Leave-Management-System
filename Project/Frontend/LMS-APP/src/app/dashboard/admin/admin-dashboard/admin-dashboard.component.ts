@@ -31,6 +31,8 @@ export class AdminDashboardComponent implements OnInit {
   mode: 'add' | 'update' = 'add';
 
   searchTerm: string = '';
+  currentPage : number = 1;
+  itemsPerPage : number = 5;
 
   constructor(private apiService: ApiService, private router: Router) {}
 
@@ -43,9 +45,7 @@ export class AdminDashboardComponent implements OnInit {
       this.userList = res.results;
 
       // Counting Number Of Employees
-      this.employees = this.userList.filter(
-        (user: any) => user.role === 'Employee'
-      );
+      this.employees = this.userList.filter((user: any) => user.role === 'Employee');
       this.totalEmployees = this.employees.length;
 
       // Counting Number Of Admins
@@ -68,6 +68,21 @@ export class AdminDashboardComponent implements OnInit {
         user.email.toLowerCase().includes(lowerSearch)
     );
   }
+
+  // Pagination
+
+  // Count Total Pages
+  getTotalPages():number {
+    return Math.ceil(this.userList.length / this.itemsPerPage);
+  }
+
+  // Navigate Between Pages
+  goToPage(page : number) : void {
+    if(page >=1 && page <= this.getTotalPages()){
+      this.currentPage = page;
+    }
+  }
+
 
   // Add Users / Update Users
   openAddModal() {
