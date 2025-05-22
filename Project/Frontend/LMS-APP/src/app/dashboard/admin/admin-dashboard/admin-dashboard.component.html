@@ -44,7 +44,7 @@
             </button>
         </div>
 
-        <!-- Select totalPage to Show -->
+        <!-- Dropdown to select no of users to show in a table -->
         <div class="flex items-center justify-end px-4 mb-4 gap-2">
             <label for="itemsPerPage" class="text-gray-700 font-medium">Items per page:</label>
 
@@ -159,6 +159,49 @@
         </tbody>
     </table>
 </div>
+
+<!-- User Profile Modal -->
+<div *ngIf="isProfileModalOpen"
+    class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50 transition-opacity duration-300">
+    <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-lg relative animate-fade-in">
+
+        <!-- Close Button -->
+        <button (click)="closeModal()"
+            class="absolute top-2 right-2 text-gray-500 hover:text-red-600 text-2xl font-bold focus:outline-none">
+            &times;
+        </button>
+
+        <!-- Modal Title -->
+        <h2 class="text-2xl font-bold mb-6 text-center text-blue-700">
+            User's Profile
+        </h2>
+
+        <!-- Modal Body -->
+        <section class="container flex flex-col md:flex-row items-start p-5 gap-6" *ngIf="user">
+            <figure class="w-full md:w-1/3">
+                <img src="assets/images/development.png" alt="Profile Image"
+                    class="object-cover w-full h-52 rounded-xl shadow-md">
+            </figure>
+
+            <div class="flex flex-col justify-center text-gray-800 space-y-2 md:space-y-4 text-lg md:text-xl">
+                <p><strong>Username:</strong> {{ user.username }}</p>
+                <p><strong>Email:</strong> {{ user.email }}</p>
+                <p><strong>Role:</strong> {{ user.role }}</p>
+            </div>
+        </section>
+
+
+        <!-- Action Buttons -->
+        <div class="flex justify-end gap-3 pt-4">
+            <button type="button" (click)="closeModal()"
+                class="px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition">
+                Cancel
+            </button>
+        </div>
+    </div>
+</div>
+
+
 <!-- Pagination Controls -->
 <div class="flex justify-center items-center gap-2 mt-6 mb-4">
     <button (click)="goToPage(currentPage - 1)" [disabled]="currentPage === 1"

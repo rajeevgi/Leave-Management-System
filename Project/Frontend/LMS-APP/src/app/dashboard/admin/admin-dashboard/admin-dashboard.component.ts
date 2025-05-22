@@ -4,6 +4,8 @@ import { User } from '../../../shared/model/user';
 import { ApiService } from '../../../shared/services/api.service';
 import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { Employee } from '../../../shared/model/employee';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-dashboard',
@@ -19,6 +21,15 @@ export class AdminDashboardComponent implements OnInit {
     role: 'Employee',
   };
 
+  // employee: Employee = {
+  //   user_id:0,
+  //   name:'',
+  //   position:'',
+  //   department:''
+  // }
+
+  employee: Employee | null = null;
+
   userList: User[] = [];
 
   employees: any;
@@ -28,13 +39,14 @@ export class AdminDashboardComponent implements OnInit {
   totalEmployees: number = 0;
 
   isModalOpen: boolean = false;
+  isProfileModalOpen: boolean = false;
   mode: 'add' | 'update' = 'add';
 
   searchTerm: string = '';
-  currentPage : number = 1;
-  itemsPerPage : number = 5;
+  currentPage: number = 1;
+  itemsPerPage: number = 5;
 
-  constructor(private apiService: ApiService, private router: Router) {}
+  constructor(private apiService: ApiService, private router: Router, private toastr: ToastrService) {}
 
   ngOnInit(): void {
     this.loadUsers();
@@ -45,7 +57,9 @@ export class AdminDashboardComponent implements OnInit {
       this.userList = res.results;
 
       // Counting Number Of Employees
-      this.employees = this.userList.filter((user: any) => user.role === 'Employee');
+      this.employees = this.userList.filter(
+        (user: any) => user.role === 'Employee'
+      );
       this.totalEmployees = this.employees.length;
 
       // Counting Number Of Admins
@@ -72,17 +86,16 @@ export class AdminDashboardComponent implements OnInit {
   // Pagination
 
   // Count Total Pages
-  getTotalPages():number {
+  getTotalPages(): number {
     return Math.ceil(this.userList.length / this.itemsPerPage);
   }
 
   // Navigate Between Pages
-  goToPage(page : number) : void {
-    if(page >=1 && page <= this.getTotalPages()){
+  goToPage(page: number): void {
+    if (page >= 1 && page <= this.getTotalPages()) {
       this.currentPage = page;
     }
   }
-
 
   // Add Users / Update Users
   openAddModal() {
@@ -104,11 +117,13 @@ export class AdminDashboardComponent implements OnInit {
 
   closeModal() {
     this.isModalOpen = false;
+    this.isProfileModalOpen = false;
   }
 
   addUsers(data: User) {
-    this.apiService.addUsers(data).subscribe((res: any) => {
-      alert('User Added Successfully...');
+    this.apiService.addUsers(data).subscribe(() => {
+      // alert('User Added Successfully...');
+      this.toastr.success('User Added Successfully...');
       this.loadUsers();
       this.closeModal();
     });
@@ -119,7 +134,8 @@ export class AdminDashboardComponent implements OnInit {
     this.apiService
       .updateUserById(this.user.id!, this.user)
       .subscribe((res: any) => {
-        alert('User updated successfully...');
+        // alert('User updated successfully...');
+        this.toastr.success('User updated successfully...');
         this.loadUsers();
         this.closeModal();
       });
@@ -129,7 +145,8 @@ export class AdminDashboardComponent implements OnInit {
   deleteUserById(id: number) {
     if (confirm('Are you sure want to remove this user?')) {
       this.apiService.deleteUserById(id).subscribe(() => {
-        alert('User removed successfully...');
+        // alert('User removed successfully...');
+        this.toastr.success('User removed Successfully...');
         this.loadUsers();
       });
     }
@@ -137,8 +154,9 @@ export class AdminDashboardComponent implements OnInit {
 
   // Get User Profile
   openUserProfile(id: number) {
-    this.apiService.getEmployeeProfile(id).subscribe((res: any) => {
-      this.userList = res;
+    this.apiService.getUserById(id).subscribe((res: any) => {
+      this.user = res.result[0];
+      this.isProfileModalOpen = true;
     });
   }
 }
