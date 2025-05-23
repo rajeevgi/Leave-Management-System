@@ -24,7 +24,7 @@ const Leave = {
     },
 
     updateStatus: (leaveId, status, callback) => {
-        const sql = 'Update leaves Set status = ? where id = ?';
+        const sql = 'Update leaves Set status = ?, updated_at = NOW() where id = ?';
         db.query(sql, [status, leaveId], callback);
     }
 };

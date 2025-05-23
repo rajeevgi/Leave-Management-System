@@ -11,6 +11,8 @@ export class ApiService {
 
   empUrl = "http://localhost:5000/api/employees";
 
+  leaveUrl = "http://localhost:5000/api/leaves";
+
   constructor(private http : HttpClient) { }
 
   // Users API's
@@ -41,6 +43,16 @@ export class ApiService {
 
   getEmployeeProfile(id : number) : Observable<any> {
     return this.http.get(`${this.empUrl}/findUserById/${id}`);
+  }
+
+
+  // Leave API's
+  getAllLeaves() : Observable<any> {
+    return this.http.get(`${this.leaveUrl}/getAllLeaves`);
+  }
+
+  updateLeaveStatus(id:number, data:any) : Observable<any> {
+    return this.http.put(`${this.leaveUrl}/updateLeaveStatus/${id}`, data);
   }
 }
  

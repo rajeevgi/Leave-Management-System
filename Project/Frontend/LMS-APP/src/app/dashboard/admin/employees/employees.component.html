@@ -1,1 +1,52 @@
-<p>employees works!</p>
+<div class="container">
+    <div class="bg-slate-300 rounded-lg m-2 px-6 py-4">
+        <h2 class="font-bold text-white">Leave Approval</h2>
+    </div>
+    <!-- Leave Status Table -->
+    <table class="border-collapse border border-slate-500 w-full">
+        <thead>
+            <tr class="text-sm">
+                <th class="border border-slate-500 px-6 py-3">#</th>
+                <th class="border border-slate-500 px-6 py-3">EmployeeID</th>
+                <th class="border border-slate-500 px-6 py-3">Start Date</th>
+                <th class="border border-slate-500 px-6 py-3">End Date</th>
+                <th class="border border-slate-500 px-6 py-3">Leave Type</th>
+                <th class="border border-slate-500 px-6 py-3">Reason</th>
+                <th class="border border-slate-500 px-6 py-3">Status</th>
+                <th class="border border-slate-500 px-6 py-3">Created_at</th>
+                <th class="border border-slate-500 px-6 py-3">Updated_at</th>
+                <th class="border border-slate-500 px-6 py-3">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let leave of leavesList; let i = index" class="text-sm">
+                <td class="border border-slate-500 px-6 py-3">{{ i+1 }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.employee_id }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.start_date }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.end_date }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.leave_type }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.reason }}</td>
+                <td class="border border-slate-500 px-6 py-3">
+                    <select [(ngModel)]="leave.status" [ngClass]="
+                    {
+                        'bg-yellow-500': leave.status === 'Pending',
+                        'bg-green-500': leave.status === 'Approved',
+                        'bg-red-300': leave.status === 'Not Approved'
+                    }
+                    "    class="p-2 rounded text-black">
+                        <option value="Pending">Pending</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Not Approved">Not Approved</option>
+                    </select>
+                </td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.created_at }}</td>
+                <td class="border border-slate-500 px-6 py-3">{{ leave.updated_at}}</td>
+                <td class="border border-slate-500 px-6 py-3">
+                    <button class="w-14 h-8 border bg-green-400 text-white rounded-lg" (click)="updateStatus(leave)">
+                        Save
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
