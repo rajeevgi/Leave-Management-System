@@ -42,3 +42,5 @@ Select e.*, u.email from employees e JOIN users u ON e.user_id = u.id;
 select * from users;
 select * from employees;
 select * from leaves;
+
+delete from users where id = 26;

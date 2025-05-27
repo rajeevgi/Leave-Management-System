@@ -4,7 +4,8 @@
       <!-- Left Section: Logo and Dashboard -->
       <div class="flex items-center space-x-6">
         <a href="#" class="flex items-center">
-          <img src="assets/images/development.png" class="w-8 h-8 rounded-full object-cover border border-black p-1 hover:bg-white" alt="Logo">
+          <img src="assets/images/development.png"
+            class="w-8 h-8 rounded-full object-cover border border-black p-1 hover:bg-white" alt="Logo">
         </a>
         <ul class="flex space-x-6">
           <ng-container>
@@ -22,7 +23,21 @@
           </ng-container>
           <ng-container *ngIf="role === 'Employee'">
             <li class="hover:text-black hover:underline font-bold cursor-pointer">
-              <a routerLink="app-employee-dashboard">Employee Dashboard</a>
+              <a routerLink="app-employee-dashboard">Profile</a> 
+            </li>
+            <li class="relative font-bold text-white cursor-pointer" (click)="toggleDropdown()">
+              <div class="hover:text-black hover:underline">Leave</div>
+
+              <div *ngIf="dropdownOpen" class="absolute bg-white text-black mt-2 w-40 rounded shadow-lg z-10">
+                <a routerLink="app-apply-leave" class="block px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                  (click)="closeDropdown()">
+                  Apply Leave
+                </a>
+                <a routerLink="app-my-leaves" class="block px-4 py-2 hover:bg-blue-100 cursor-pointer"
+                  (click)="closeDropdown()">
+                  Check Leaves
+                </a>
+              </div>
             </li>
           </ng-container>
         </ul>

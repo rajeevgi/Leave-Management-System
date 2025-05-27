@@ -41,10 +41,13 @@ export class ApiService {
     return this.http.get(`${this.empUrl}/getAllUsers`);
   }
 
-  getEmployeeProfile(id : number) : Observable<any> {
-    return this.http.get(`${this.empUrl}/findUserById/${id}`);
-  }
+  addUserProfile(data : any) : Observable<any>{
+    return this.http.post<any>(`${this.empUrl}/addProfile`, data);
+  } 
 
+  getEmployeeProfile(userId : number) : Observable<any> {
+    return this.http.get(`${this.empUrl}/findUserByUserId/${userId}`);
+  }
 
   // Leave API's
   getAllLeaves() : Observable<any> {

@@ -4,7 +4,6 @@ import { RegisterComponent } from './auth/register/register.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { EmployeesComponent } from './dashboard/admin/employees/employees.component';
-import { LeaveRequestsComponent } from './dashboard/admin/leave-requests/leave-requests.component';
 import { ApplyLeaveComponent } from './dashboard/employee/apply-leave/apply-leave.component';
 import { MyLeavesComponent } from './dashboard/employee/my-leaves/my-leaves.component';
 import { HomeComponent } from './dashboard/home/home.component';
@@ -69,12 +68,6 @@ export const routes: Routes = [
       {
         path: 'app-employees',
         component: EmployeesComponent,
-        canActivate: [authGuard],
-      },
-
-      {
-        path: 'app-leave-requests',
-        component: LeaveRequestsComponent,
         canActivate: [authGuard],
       },
 
