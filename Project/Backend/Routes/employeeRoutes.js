@@ -15,4 +15,10 @@ router.get('/findUserByUserId/:userId',verifyToken, employeeController.getByUser
 // Find All Users
 router.get('/getAllUsers',verifyToken,allowRoles('Admin'), employeeController.getAll);
 
+// Delete User's Profile
+router.delete('/deleteUserProfile/:id', verifyToken, allowRoles('Admin', 'Employee'), employeeController.deleteProfile);
+
+// Update User's Profile
+router.put('/updateUserProfile/:userId', verifyToken, allowRoles('Admin','Employee'), employeeController.updateProfile);
+
 module.exports = router;

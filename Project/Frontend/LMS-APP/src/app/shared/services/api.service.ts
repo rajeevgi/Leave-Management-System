@@ -49,6 +49,14 @@ export class ApiService {
     return this.http.get(`${this.empUrl}/findUserByUserId/${userId}`);
   }
 
+  updateUserProfile(userId : number, data : any) : Observable<any> {
+    return this.http.put(`${this.empUrl}/updateUserProfile/${userId}`, data);
+  }
+
+  deleteUserProfile(id : any) : Observable<any> {
+    return this.http.delete(`${this.empUrl}/deleteUserProfile/${id}`);
+  }
+
   // Leave API's
   getAllLeaves() : Observable<any> {
     return this.http.get(`${this.leaveUrl}/getAllLeaves`);

@@ -23,6 +23,7 @@ export class EmployeeDashboardComponent implements OnInit {
   };
 
   showForm: boolean = false;
+  isUpdate: 'Update' | 'Add' = 'Add';
 
   constructor(
     private apiService: ApiService,
@@ -42,7 +43,7 @@ export class EmployeeDashboardComponent implements OnInit {
     this.apiService.getEmployeeProfile(userId).subscribe((res: any) => {
       if (res && res.name) {
         this.employee = res;
-        this.showForm = false;
+        this.isUpdate = 'Update';
       } else {
         this.employee = {
           user_id: userId,
@@ -52,7 +53,9 @@ export class EmployeeDashboardComponent implements OnInit {
           created_at: '',
           updated_at: '',
         };
+        this.isUpdate = 'Add';
       }
+      this.showForm = false;
     });
   }
 
@@ -61,12 +64,50 @@ export class EmployeeDashboardComponent implements OnInit {
   }
 
   saveProfile() {
-    this.apiService.addUserProfile(this.employee).subscribe((res: any) => {
-      if (res.success || res.name) {
-        this.showForm = false;
-        this.toastr.success('Profile Added Successfully...');
-        this.getEmployeeProfile(this.employee.user_id); // Reload updated data
+    if (
+      this.employee.name &&
+      this.employee.position &&
+      this.employee.department
+    ) {
+      if (this.isUpdate === 'Update') {
+        // Update Existing Profile
+        this.apiService
+          .updateUserProfile(this.employee.user_id, this.employee)
+          .subscribe(
+            (res: any) => {
+              if (res && res.result && res.result.affectedRows > 0) {
+                this.toastr.success(
+                  res.message || 'Profile Updated Successfully...'
+                );
+                this.showForm = false;
+                this.getEmployeeProfile(this.employee.user_id); // Show updated profile
+              } else {
+                this.toastr.error('Failed to update profile');
+              }
+            },
+            (err) => {
+              this.toastr.error('Error updating profile');
+            }
+          );
+      } else {
+        // Add New Profile
+        this.apiService.addUserProfile(this.employee).subscribe(
+          (res: any) => {
+            if (res && res.result && res.result.affectedRows > 0) {
+              this.toastr.success(
+                res.message || 'Profile Added Successfully...'
+              );
+              this.showForm = false;
+              this.getEmployeeProfile(this.employee.user_id); // Show added profile
+            } else {
+              this.toastr.error('Failed to add profile');
+            }
+          },
+          (err) => {
+            this.toastr.error('Error adding profile');
+          }
+        );
       }
-    });
+    }
   }
 }

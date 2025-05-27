@@ -46,3 +46,30 @@ exports.getAll = (req, res) => {
     res.status(201).json({ message: "List Of Employees are : ", results });
   });
 };
+
+exports.updateProfile = (req, res) => {
+  const { userId } = req.params;
+  const { name, position, department } = req.body;
+
+  const updatedData = { name, position, department };
+  
+  Employee.updateProfile(userId, updatedData,(err, result) => {
+    if (err){
+      return res.status(500).json({ message : "Failed to Update Profile! "});
+    }
+
+    res.status(201).json({ message : "Profile Updated Successfully...", result });
+  });
+}
+
+exports.deleteProfile = ( req, res) => {
+  const { id } = req.params;
+
+  Employee.deleteProfile(id, (err, result) => {
+    if (err) {
+      return res.status(500).json({ message : "Failed To delete User Profile! "});
+    }
+
+    res.status(201).json({ message : "User Profile Removed Successfully...", result});
+  });
+}
