@@ -12,7 +12,7 @@ const Leave = {
     getByEmployeeId: (employeeId, callback) => {
         const sql = 'Select * from leaves where employee_id = ? Order by created_at desc';
         db.query(sql,[employeeId], callback);
-    },
+    }, 
 
     getAll: (callback) => {
         const sql = `

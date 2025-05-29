@@ -45,6 +45,10 @@ export class ApiService {
     return this.http.post<any>(`${this.empUrl}/addProfile`, data);
   } 
 
+  getEmployeeById(id : number) : Observable<any> {
+    return this.http.get(`${this.empUrl}/findUserById/${id}`);
+  }
+
   getEmployeeProfile(userId : number) : Observable<any> {
     return this.http.get(`${this.empUrl}/findUserByUserId/${userId}`);
   }
@@ -60,6 +64,14 @@ export class ApiService {
   // Leave API's
   getAllLeaves() : Observable<any> {
     return this.http.get(`${this.leaveUrl}/getAllLeaves`);
+  }
+
+  applyLeave(data : any) : Observable<any> {
+    return this.http.post(`${this.leaveUrl}/applyLeave`, data);
+  }
+
+  myLeaves(employeeId : number) : Observable<any>{
+    return this.http.get(`${this.leaveUrl}/getLeaveByEmployeeId/${employeeId}`);
   }
 
   updateLeaveStatus(id:number, data:any) : Observable<any> {
