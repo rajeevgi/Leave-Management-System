@@ -36,7 +36,7 @@ export class ApplyLeaveComponent {
           reason: '',
           status: 'Pending',
         };
-        this.router.navigateByUrl('/app-dashboard/app-employee-dashboard');
+        this.router.navigateByUrl('/app-dashboard-layout/app-employee-dashboard');
       } else {
         this.toastr.error('Failed to apply leave');
       }

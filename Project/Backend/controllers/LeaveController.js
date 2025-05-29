@@ -1,19 +1,41 @@
-const leave = require("../Models/Leave");
+const Employee = require("../Models/Employee");
+const Leave = require("../Models/Leave");
 
 exports.applyLeave = (req, res) => {
-  const leaveData = req.body;
+  const userId = req.user.id;   // It will take employee_id from employee table
+  const { start_date, end_date, leave_type, reason } = req.body;
 
-  leave.apply(leaveData, (err, result) => {
-    if (err) return res.status(500).json({ error: "Failed To Apply leave!" });
+  Employee.findByUserId(userId, (err, employeeResult) => {
+    if (err || employeeResult.length === 0) {
+      return res.status(400).json({ error: "Employee profile not found for user" });
+    }
 
-    res.status(201).json({ message: "Leave Applied Successfully....", result });
+    const employee = employeeResult[0];
+    const employee_id = employee.id; // employees.id
+
+    const leaveData = {
+      employee_id,
+      start_date,
+      end_date,
+      leave_type,
+      reason,
+    };
+
+    Leave.apply(leaveData, (err, result) => {
+      if (err) {
+        return res.status(500).json({ error: "Failed To Apply leave!" });
+      }
+
+      res.status(201).json({ message: "Leave Applied Successfully", result });
+    });
   });
 };
+
 
 exports.getLeavesByEmployeeId = (req, res) => {
   const employeeId = req.params.employeeId;
 
-  leave.getByEmployeeId(employeeId, (err, result) => {
+  Leave.getByEmployeeId(employeeId, (err, result) => {
     if (err){
       return res.status(500).json({ error: "Failed To Apply leave by Employee ID!" });
     }
@@ -23,7 +45,7 @@ exports.getLeavesByEmployeeId = (req, res) => {
 };
 
 exports.getAllLeaves = (req, res) => {
-  leave.getAll((err, results) => {
+  Leave.getAll((err, results) => {
     if (err)
       return res.status(500).json({ error: "Failed To Fetch All Leaves!" });
 
@@ -35,7 +57,7 @@ exports.updateLeaveStatus = (req, res) => {
   const { leaveId } = req.params;
   const { status } = req.body;
 
-  leave.updateStatus(leaveId,status, (err, result) => {
+  Leave.updateStatus(leaveId,status, (err, result) => {
     if (err)
     {
       return res.status(500).json({ error: "Failed To Update Leave Status!" });

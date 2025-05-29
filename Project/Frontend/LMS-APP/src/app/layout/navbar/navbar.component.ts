@@ -13,6 +13,7 @@ export class NavbarComponent implements OnInit {
   role: string | null = null;
 
   dropdownOpen: boolean = false;
+  isProfileCompleted : boolean = false;
 
   constructor(private router: Router, private tokenService: TokenService, private elementRef : ElementRef) {}
 
