@@ -24,6 +24,7 @@ export class EmployeeDashboardComponent implements OnInit {
 
   showForm: boolean = false;
   isUpdate: 'Update' | 'Add' = 'Add';
+  profileExists : boolean = false;
 
   constructor(
     private apiService: ApiService,
@@ -44,6 +45,8 @@ export class EmployeeDashboardComponent implements OnInit {
       if (res && res.name) {
         this.employee = res;
         this.isUpdate = 'Update';
+        this.profileExists = true;
+        sessionStorage.setItem('profileExists', 'true');
       } else {
         this.employee = {
           user_id: userId,
@@ -54,6 +57,8 @@ export class EmployeeDashboardComponent implements OnInit {
           updated_at: '',
         };
         this.isUpdate = 'Add';
+        this.profileExists = false;
+        sessionStorage.setItem('profileExists', 'false');  // Set False if no profile Created.
       }
       this.showForm = false;
     });
@@ -80,7 +85,9 @@ export class EmployeeDashboardComponent implements OnInit {
                   res.message || 'Profile Updated Successfully...'
                 );
                 this.showForm = false;
+                sessionStorage.setItem('profileExists', 'true');
                 this.getEmployeeProfile(this.employee.user_id); // Show updated profile
+                window.location.reload();
               } else {
                 this.toastr.error('Failed to update profile');
               }
@@ -98,7 +105,9 @@ export class EmployeeDashboardComponent implements OnInit {
                 res.message || 'Profile Added Successfully...'
               );
               this.showForm = false;
+              sessionStorage.setItem('profileExists', 'true');
               this.getEmployeeProfile(this.employee.user_id); // Show added profile
+              window.location.reload();
             } else {
               this.toastr.error('Failed to add profile');
             }

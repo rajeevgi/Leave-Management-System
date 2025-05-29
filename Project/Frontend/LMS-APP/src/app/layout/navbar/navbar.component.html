@@ -23,9 +23,11 @@
           </ng-container>
           <ng-container *ngIf="role === 'Employee'">
             <li class="hover:text-black hover:underline font-bold cursor-pointer">
-              <a routerLink="app-employee-dashboard">Profile</a> 
+              <a routerLink="app-employee-dashboard">Profile</a>
             </li>
-            <li class="relative font-bold text-white cursor-pointer" (click)="toggleDropdown()">
+
+            <!-- Show Leave dropdown only if profile exists -->
+            <li *ngIf="profileExists" class="relative font-bold text-white cursor-pointer" (click)="toggleDropdown()">
               <div class="hover:text-black hover:underline">Leave</div>
 
               <div *ngIf="dropdownOpen" class="absolute bg-white text-black mt-2 w-40 rounded shadow-lg z-10">
@@ -40,6 +42,7 @@
               </div>
             </li>
           </ng-container>
+
         </ul>
       </div>
 
