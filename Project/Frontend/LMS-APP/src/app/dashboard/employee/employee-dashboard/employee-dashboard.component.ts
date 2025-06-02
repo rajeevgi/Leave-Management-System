@@ -81,13 +81,14 @@ export class EmployeeDashboardComponent implements OnInit {
           .subscribe(
             (res: any) => {
               if (res && res.result && res.result.affectedRows > 0) {
+                this.profileExists = true;
                 this.toastr.success(
                   res.message || 'Profile Updated Successfully...'
                 );
                 this.showForm = false;
                 sessionStorage.setItem('profileExists', 'true');
                 this.getEmployeeProfile(this.employee.user_id); // Show updated profile
-                window.location.reload();
+                // window.location.reload();
               } else {
                 this.toastr.error('Failed to update profile');
               }
@@ -101,13 +102,14 @@ export class EmployeeDashboardComponent implements OnInit {
         this.apiService.addUserProfile(this.employee).subscribe(
           (res: any) => {
             if (res && res.result && res.result.affectedRows > 0) {
+              this.profileExists = true;
               this.toastr.success(
                 res.message || 'Profile Added Successfully...'
               );
               this.showForm = false;
               sessionStorage.setItem('profileExists', 'true');
               this.getEmployeeProfile(this.employee.user_id); // Show added profile
-              window.location.reload();
+              // window.location.reload();
             } else {
               this.toastr.error('Failed to add profile');
             }

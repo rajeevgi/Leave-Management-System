@@ -7,7 +7,9 @@ const { verifyToken, allowRoles } = require('../Middleware/Auth');
 router.post('/applyLeave',verifyToken, allowRoles('Employee'), leaveController.applyLeave);
 
 // Find Leave by Id
-router.get('/getLeaveByEmployeeId/:employeeId',verifyToken, allowRoles('Admin', 'Employee'), leaveController.getLeavesByEmployeeId);
+// router.get('/getLeaveByEmployeeId/:employeeId',verifyToken, allowRoles('Admin', 'Employee'), leaveController.getLeavesByEmployeeId);
+
+router.get('/getLeaveByUserId/:userId', verifyToken, allowRoles('Admin', 'Employee'), leaveController.getLeavesByUserId);
 
 // Find All Leaves
 router.get('/getAllLeaves',verifyToken, allowRoles('Admin'), leaveController.getAllLeaves);

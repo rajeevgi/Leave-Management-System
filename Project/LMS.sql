@@ -13,6 +13,9 @@ create table Users (
     updated_at timestamp default current_timestamp on update current_timestamp
 );
 
+insert into users (id, username, email, password, role) 
+values (1,'rajeevg29','rajeevg29@gmail.com', '$2a$12$lbIv4V2N3hycTSIOABNUYux3u02Ziu67X56Sjs1qhwLsvcEXa5or2', 'Admin');
+
 create table Employees (
 	id int primary key auto_increment,
     user_id int not null,
@@ -23,6 +26,10 @@ create table Employees (
     updated_at timestamp default current_timestamp on update current_timestamp,
     FOREIGN key (user_id) references Users(id) on delete cascade
 );
+
+insert into employees (user_id, name, position, department) values (1, 'Rajeev Gupta', 'Senior Developer', 'Development');
+
+ALTER TABLE Employees AUTO_INCREMENT = 1;
 
 create table leaves (
 	id int primary key auto_increment,
@@ -44,3 +51,10 @@ select * from employees;
 select * from leaves;
 
 delete from users where id = 26;
+
+select l.employee_id, l.start_date, l.end_date,l.leave_type, l.reason, l.status,
+l.created_at, l.updated_at from leaves l
+left join 
+employees e on
+l.employee_id = e.user_id
+where e.user_id = 2;

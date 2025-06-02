@@ -23,13 +23,6 @@ export class NavbarComponent implements OnInit {
     private apiService: ApiService
   ) {}
 
-  // ngOnInit(): void {
-  //   this.role = this.tokenService.getRole();
-  //   if (this.role === 'Employee') {
-  //     this.profileExists = sessionStorage.getItem('profileExists') === 'true';
-  //   }
-  // }
-
   ngOnInit(): void {
     this.role = this.tokenService.getRole();
 

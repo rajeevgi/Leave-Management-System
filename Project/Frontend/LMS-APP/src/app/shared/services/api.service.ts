@@ -70,8 +70,8 @@ export class ApiService {
     return this.http.post(`${this.leaveUrl}/applyLeave`, data);
   }
 
-  myLeaves(employeeId : number) : Observable<any>{
-    return this.http.get(`${this.leaveUrl}/getLeaveByEmployeeId/${employeeId}`);
+  myLeaves(userId : number) : Observable<any>{
+    return this.http.get(`${this.leaveUrl}/getLeaveByUserId/${userId}`);
   }
 
   updateLeaveStatus(id:number, data:any) : Observable<any> {
