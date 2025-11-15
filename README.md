@@ -183,7 +183,23 @@ npm run dev
 cd LMS-APP
 npm install
 ng serve
-\`\`\`
+\`\`\`   
+
+---
+## 📷 Screenshots
+![image](https://github.com/user-attachments/assets/8d3e49c8-c944-4b1d-ad0b-22ca0f059b36) - Login Page
+![image](https://github.com/user-attachments/assets/394086ab-34e2-4763-b6ce-18736278d16f) - Register Page
+![image](https://github.com/user-attachments/assets/55d8d017-8f01-4499-955e-4f7c151804d0) - Home Page/Landing Page
+![image](https://github.com/user-attachments/assets/4f0b397f-5253-40f5-b6a2-a74a1c4850cb) - Admin Dashboard To Manage Users.
+![image](https://github.com/user-attachments/assets/46d72378-0a78-4e00-88de-1c44271803b8) 
+![image](https://github.com/user-attachments/assets/71fe235c-2576-4a66-93cd-a2ec4f7c624b) - Add User Form for Admin
+![image](https://github.com/user-attachments/assets/20ca64d0-3c67-4c1c-830e-008a6d4d9d0f) - View User's Profile For Admin
+![image](https://github.com/user-attachments/assets/891be82f-f5d6-4aa7-a455-9e6e529a9040) - Update User's Details By Admin
+![image](https://github.com/user-attachments/assets/95f9bea9-2c94-47ad-971a-423a772775a6) - Leave Approval Page 
+![image](https://github.com/user-attachments/assets/38e93650-2b96-4b92-854d-66f41e90118e) - User's Profile Page
+![image](https://github.com/user-attachments/assets/6acd1fac-1263-4dc1-8aab-79b88a421f63) - Update User Profile By User
+![image](https://github.com/user-attachments/assets/dc960e9c-4b35-499d-a552-7103b6897213) - Leave Apply Page
+![image](https://github.com/user-attachments/assets/9f4e4524-3592-41ae-9720-c2a7226dfdce) - Check My-leaves Page For User
 
 ---
 
