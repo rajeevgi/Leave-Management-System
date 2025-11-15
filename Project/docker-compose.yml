@@ -1,0 +1,47 @@
+version: "3.9"
+
+services:
+  mysql:
+    image: mysql:8
+    container_name: my-lmsdb
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: LMS_DB
+    ports:
+      - "3307:3306"
+    volumes:
+      - ./Backend/db-init.sql:/docker-entrypoint-initdb.d/db-init.sql  
+    networks:
+      - lms-network
+
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+    container_name: my-lms-nodeapp
+    restart: always
+    env_file:
+      - ./Backend/.env   
+    ports:
+      - "5000:5000"
+    depends_on:
+      - mysql
+    command: ["sh", "-c", "sleep 15 && node server.js"]  
+    networks:
+      - lms-network
+
+  frontend:
+    build:
+      context: ./Frontend/LMS-APP
+      dockerfile: Dockerfile
+    container_name: lms-angular-app
+    restart: always
+    ports:
+      - "4200:80"
+    networks:
+      - lms-network
+
+networks:
+  lms-network:
+    driver: bridge

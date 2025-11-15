@@ -5,8 +5,6 @@ const { sendWelcomeEmail } = require("../utils/mailer");
 
 exports.register = async (req, res) => {
   const { username, email, password, role } = req.body;
-  console.log(req.body)
-
   try {
     // Hashing Password
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -18,14 +16,24 @@ exports.register = async (req, res) => {
         }
         try {
           await sendWelcomeEmail(email, username);
-          res.status(201).json({ message: "User registered Successfully...", result });
+          res
+            .status(201)
+            .json({ message: "User registered Successfully...", result });
         } catch (emailErr) {
-          return res.status(201).json({ message: "User registered, but email could not be sent.",
-              result, error: emailErr.toString()});
+          return res
+            .status(201)
+            .json({
+              message: "User registered, but email could not be sent.",
+              result,
+              error: emailErr.toString(),
+            });
         }
-      });
+      }
+    );
   } catch (e) {
-    return res.status(500).json({ message: "Unexpected error", error: e.toString() });
+    return res
+      .status(500)
+      .json({ message: "Unexpected error", error: e.toString() });
   }
 };
 
@@ -34,14 +42,14 @@ exports.login = async (req, res) => {
 
   User.findByEmail(email, async (err, result) => {
     if (err || result.length === 0) {
-      return res.status(401).json({ err: "Invalid email or password" });
+      return res.status(401).json({ err: "Invalid email" });
     }
     const user = result[0];
     // Compare Hashed Password with original Password
     const validPassword = await bcrypt.compare(password, user.password);
 
     if (!validPassword) {
-      return res.status(401).json({ err: "Invalid email or password" });
+      return res.status(401).json({ err: "Invalid password" });
     }
 
     const token = jwt.sign(
